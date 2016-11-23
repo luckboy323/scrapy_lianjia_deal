@@ -2,15 +2,13 @@
 
 import scrapy
 from bs4 import BeautifulSoup
-from scrapy_demo.items import LianJiaItem
+from scrapy_demo.items import SuningItem
 from scrapy.http import Request
 from scrapy.contrib.spiders import Rule
 from scrapy.contrib.linkextractors.lxmlhtml import LxmlLinkExtractor
 import time
 
 
-add=0
-page=0
 class LianjiaSpider(scrapy.Spider):
     print '------begin spider suning data-------'
     Experts = []
@@ -39,36 +37,19 @@ class LianjiaSpider(scrapy.Spider):
             for wareLi in wareLis:
                 wareName = wareLi.xpath('./a/span/text()').extract()[0]
                 wareUrl = wareLi.xpath('./a/@href').extract()[0]
+                imgUrlList = wareLi.xpath('./a/img/@src').extract()
+                if len(imgUrlList)>0:
+                    imgUrl = imgUrlList[0]
+                else:
+                    imgUrl = ''
                 if cmp('http',wareUrl)>0:
                     wareUrl =  self.domain + wareUrl
                 print "-----ware name is %s,url is %s" % (wareName,wareUrl)
+                item = SuningItem()
+                item['category'] = category[0]
+                item['ware'] = wareName
+                item['wareUrl'] = wareUrl
+                item['imgUrl'] = imgUrl
+                item['memo'] = ''
+                yield item
 
-
-
-        # global add
-        # global page
-        # soup = BeautifulSoup(response.body, "html5lib")
-        # # 找到所有的博文代码模块
-        # sites = soup.find('ul', "listContent").contents
-        #
-        # for site in sites:
-        #     item = LianJiaItem()
-        #     # 姓名、链接、地址、职业、阅读次数、文章数  houseName, houseType, area, dealTime, totalPrice, unitPrice, floor, memo
-        #     title = site.find('div', "title").a.get_text()
-        #     item['houseName'] = title.split(' ')[0].encode('utf8')
-        #     item['houseType'] = title.split(' ')[1].encode('utf8')
-        #     item['area'] = title.split(' ')[2].encode('utf8')
-        #     item['dealTime'] = site.find('div', "dealDate").get_text().encode('utf8')
-        #     item['totalPrice'] = site.find('div', "totalPrice").get_text().encode('utf8')
-        #     item['unitPrice'] = site.find('div', "unitPrice").get_text().encode('utf8')
-        #     item['floor'] = site.find('div', "positionInfo").get_text().encode('utf8')
-        #     item['memo'] = site.find('div', "houseInfo").get_text().encode('utf8')
-        #     add += 1
-        #     print item['houseName']
-        #     yield item
-        # print("The total number:", add)
-        #
-        # page += 1
-        # if page < 200:
-        #     urls = "http://sz.lianjia.com/chengjiao/pg%d" % page
-        #     yield Request(url=urls, meta={"item": LianJiaItem, "result": self.Experts}, callback=self.parse)
