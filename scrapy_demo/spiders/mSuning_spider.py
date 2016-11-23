@@ -7,9 +7,10 @@ from scrapy.http import Request
 from scrapy.contrib.spiders import Rule
 from scrapy.contrib.linkextractors.lxmlhtml import LxmlLinkExtractor
 import time
+from scrapy import log
 
 
-class LianjiaSpider(scrapy.Spider):
+class SuningSpider(scrapy.Spider):
     print '------begin spider suning data-------'
     Experts = []
     name = "suning_spider"
@@ -20,7 +21,8 @@ class LianjiaSpider(scrapy.Spider):
     domain='http://m.suning.com'
 
     def parse(self, response):
-        print '------suning_spider response-------'
+        # print '------suning_spider response-------'
+        log.msg('------suning_spider response-------',level=log.INFO,spider=self.name)
         lis = response.xpath('//div[contains(@id, "listItems")]/ul/li')
 
         for li in lis:
