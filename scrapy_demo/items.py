@@ -35,3 +35,11 @@ class LianJiaItem(Item):
 	unitPrice = Field()  #成交单价
 	floor = Field()  #楼层信息
 	memo = Field()  #其他信息
+
+
+class SuningItem(Item):
+	category = Field()  # 类别
+	ware = Field()  # 名称
+	wareUrl = Field()  # 连接
+	imgUrl = Field()  # 图片链接
+	memo = Field()  #其他信息
