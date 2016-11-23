@@ -35,7 +35,6 @@ class LianjiaSpider(scrapy.Spider):
 
             print "-----wares=%s--url=%s---comment=%s---goodRate=%s" % (wares,url,comment,goodRate)
 
-
                 # item = SuningItem()
                 # item['category'] = category[0]
                 # item['ware'] = wareName
