@@ -39,7 +39,7 @@ class LianjiaSpider(scrapy.Spider):
         warecf = wareurl.split('&')[7].split('=')[1]
         wareci = wareurl.split('&')[9].split('=')[1]
         for paramDict in self.resultList:
-            if (paramDict['ci']==wareci):
+            if (paramDict['ci']==wareci and paramDict['cf']==warecf):
                 category = paramDict['category']
                 wareName = paramDict['ware']
 
