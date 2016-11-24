@@ -92,6 +92,14 @@ class MySQLPipleline(object):
                                INSERT  INTO t_suning_category (category, ware, wareUrl,imgUrl,memo)
                                VALUES (%s, %s, %s, %s, %s)
                            """, (item['category'], item['ware'], item['wareUrl'], item['imgUrl'], item['memo']))
+        elif spider.name == 'suning_ware_spider':
+            print 'suning_ware_spider'
+            conn.execute("""
+                                             INSERT  INTO t_suning_ware (catentryId, catentdesc, price,salesCode,praiseRate,countOfarticle,auxdescription,url,category,ware)
+                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                         """, (
+            item['catentryId'], item['catentdesc'], item['price'], item['salesCode'], item['praiseRate'],
+            item['countOfarticle'], item['auxdescription'], item['url'], item['category'], item['ware']))
         else:
             print 'not found the spider'
 

@@ -43,3 +43,15 @@ class SuningItem(Item):
 	wareUrl = Field()  # 连接
 	imgUrl = Field()  # 图片链接
 	memo = Field()  #其他信息
+
+class SuningWareItem(Item):
+	catentryId = Field()  # 物品ID
+	catentdesc = Field()  # 物品名称
+	price = Field()  # 价格
+	praiseRate = Field()  # 好评率
+	countOfarticle = Field()  # 评论数
+	auxdescription = Field()  # 描述
+	salesCode = Field()  # 销售码
+	url = Field()  # 详情链接
+	category = Field() # 类别
+	ware = Field()  # 商品
