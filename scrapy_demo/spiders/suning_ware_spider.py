@@ -53,6 +53,7 @@ class LianjiaSpider(scrapy.Spider):
             item = SuningWareItem()
             item['category'] = category
             item['ware'] = wareName
+            item['srcUrl'] = wareurl
             item['catentdesc'] = ware['catentdesc']
             item['price'] = ware['price']
             item['praiseRate'] = ware['praiseRate']

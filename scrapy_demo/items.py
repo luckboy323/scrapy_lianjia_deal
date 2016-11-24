@@ -55,3 +55,4 @@ class SuningWareItem(Item):
 	url = Field()  # 详情链接
 	category = Field() # 类别
 	ware = Field()  # 商品
+	srcUrl = Field()

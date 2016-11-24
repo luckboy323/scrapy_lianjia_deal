@@ -95,11 +95,11 @@ class MySQLPipleline(object):
         elif spider.name == 'suning_ware_spider':
             print 'suning_ware_spider'
             conn.execute("""
-                                             INSERT  INTO t_suning_ware (catentryId, catentdesc, price,salesCode,praiseRate,countOfarticle,auxdescription,url,category,ware)
-                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                             INSERT  INTO t_suning_ware (catentryId, catentdesc, price,salesCode,praiseRate,countOfarticle,auxdescription,url,category,ware,srcUrl)
+                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                                          """, (
             item['catentryId'], item['catentdesc'], item['price'], item['salesCode'], item['praiseRate'],
-            item['countOfarticle'], item['auxdescription'], item['url'], item['category'], item['ware']))
+            item['countOfarticle'], item['auxdescription'], item['url'], item['category'], item['ware'],item['srcUrl']))
         else:
             print 'not found the spider'
 
