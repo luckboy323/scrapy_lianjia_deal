@@ -29,6 +29,7 @@ class LianjiaSpider(scrapy.Spider):
         wareJsonStr = wareString[startPos:endPos]
         wareJson = json.loads(wareJsonStr)
         wares = wareJson['goods']
+
         for ware in wares:
              print ware['catentdesc']
              print ware['price']
