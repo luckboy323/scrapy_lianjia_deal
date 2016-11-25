@@ -1,58 +1,82 @@
 # -*- coding: UTF-8 -*-
 
 import scrapy
-from bs4 import BeautifulSoup
-from scrapy_demo.items import LianJiaItem
-from scrapy.http import Request
-from scrapy.contrib.spiders import Rule
-from scrapy.contrib.linkextractors.lxmlhtml import LxmlLinkExtractor
+import json
 import time
+from scrapy.http import Request
+from scrapy_demo.items import JdCategoryItem
 
 
-add=0
-page=0
+
 class LianjiaSpider(scrapy.Spider):
-    print '------begin spider suning data-------'
-    Experts = []
-    name = "jd_spider"
+    print '------begin spider jd data-------'
+    name = "jd_category_spider"
     allowed_domains = ["jd.com"]
     start_urls = [
-        "http://so.m.jd.com/ware/search.action?keyword=iPhone"
+        "http://so.m.jd.com/category/all.html"
     ]
 
 
     def parse(self, response):
-        print '------suning_spider response-------'
-        lis = response.xpath('//ul[contains(@id, "searchlist44")]/li')
+        print '------jd_category_spider response-------'
+        pos = response.body.find("jsArgs['category'] = ")
+        print pos
+        ary = response.body[pos+len("jsArgs['category'] = "):len(response.body)].split(';')
+        str = ary[0]
+        pos1=str.find("roorList : ")
+        roorList = str[pos1+len("roorList : "):len(str)-1]
+        categoryJson = json.loads(roorList)
 
-        for li in lis:
-            titles = li.xpath('./a/div[2]/div[1]/span/text()').extract()
-            print titles[0]
+        catalogUpdateTime = categoryJson['catalogUpdateTime']
+        print catalogUpdateTime
+        categoryList = categoryJson['catelogyList']
+        for category in categoryList:
+            level = category['level']
+            category1 = category['name']
+            cid1 = category['cid']
+            categoryUrl = 'http://so.m.jd.com/category/list.action?_format_=json&catelogyId=%s' % cid1
+            print "*****%s******%s*****%s*****" % (level,category1,cid1)
+            yield Request(url=categoryUrl, meta={'category1':category1,'cid1':cid1}, callback=self.parseCategory)
 
-        # global add
-        # global page
-        # soup = BeautifulSoup(response.body, "html5lib")
-        # # 找到所有的博文代码模块
-        # sites = soup.find('ul', "listContent").contents
-        #
-        # for site in sites:
-        #     item = LianJiaItem()
-        #     # 姓名、链接、地址、职业、阅读次数、文章数  houseName, houseType, area, dealTime, totalPrice, unitPrice, floor, memo
-        #     title = site.find('div', "title").a.get_text()
-        #     item['houseName'] = title.split(' ')[0].encode('utf8')
-        #     item['houseType'] = title.split(' ')[1].encode('utf8')
-        #     item['area'] = title.split(' ')[2].encode('utf8')
-        #     item['dealTime'] = site.find('div', "dealDate").get_text().encode('utf8')
-        #     item['totalPrice'] = site.find('div', "totalPrice").get_text().encode('utf8')
-        #     item['unitPrice'] = site.find('div', "unitPrice").get_text().encode('utf8')
-        #     item['floor'] = site.find('div', "positionInfo").get_text().encode('utf8')
-        #     item['memo'] = site.find('div', "houseInfo").get_text().encode('utf8')
-        #     add += 1
-        #     print item['houseName']
-        #     yield item
-        # print("The total number:", add)
-        #
-        # page += 1
-        # if page < 200:
-        #     urls = "http://sz.lianjia.com/chengjiao/pg%d" % page
-        #     yield Request(url=urls, meta={"item": LianJiaItem, "result": self.Experts}, callback=self.parse)
+
+    def parseCategory(self,response):
+        print '------------parseCategory------------'
+        category1 = response.meta['category1']
+        cid1 = response.meta['cid1']
+        bodyStr = response.body
+        bodyStr = bodyStr.replace('\\','')
+        pos = bodyStr.find('{"jshopUrl"')
+        bodyJsonStr = bodyStr[pos:len(bodyStr)-2]
+        bodyJson = json.loads(bodyJsonStr)
+        datas = bodyJson['data']
+        for data in datas:
+            # tmp = data[0]
+            if data.has_key('name'):
+                category2 = data['name']
+                print "**********"+category2
+            catelogyList= data['catelogyList']
+            for catelogy in catelogyList:
+                item = JdCategoryItem()
+                searchKey = ''
+                path = ''
+                if catelogy.has_key('path'):
+                    path = catelogy['path']
+                if catelogy.has_key('searchKey'):
+                    searchKey = catelogy['searchKey']
+                cid3 = catelogy['cid']
+                category3 = catelogy['name']
+                icon = catelogy['icon']
+
+                item['category1'] = category1
+                item['category2'] = category2
+                item['category3'] = category3
+                item['cid1'] = cid1
+                item['cid3'] = cid3
+                item['c3Url'] = response.url
+                item['path'] = path
+                item['searchKey'] = searchKey
+
+                yield item
+                # print '***%s***%s***%s***%s***%s' % (path,cid3,category3,icon,searchKey)
+
+        time.sleep(1)
