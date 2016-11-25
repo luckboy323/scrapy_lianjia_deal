@@ -73,5 +73,7 @@ class JdCategoryItem(Item):
 	path = Field()  # 类别路径
 	searchKey = Field()  # 搜索关键字
 	cid1 = Field()  # 第一层类别的ID
+	cid2 = Field()  # 第二层类别的ID
 	cid3 = Field()  #第三层类别的ID
 	c3Url = Field()  #第三层类别的Url
+	actionUrl = Field()

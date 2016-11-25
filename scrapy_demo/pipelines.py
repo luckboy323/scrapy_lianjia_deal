@@ -108,10 +108,10 @@ class MySQLPipleline(object):
             item['nickname'], item['link'], item['address'], item['job'], item['readers'], item['articlenum']))
         elif spider.name == 'jd_category_spider':
             conn.execute("""
-                          INSERT  INTO t_jd_category (category1, category2, category3, cid1, cid3, c3Url, path, searchKey)
-                          VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                          INSERT  INTO t_jd_category (category1, category2, category3, cid1, cid2, cid3, c3Url, path, searchKey, actionUrl)
+                          VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                       """, (
-                item['category1'], item['category2'], item['category3'], item['cid1'], item['cid3'], item['c3Url'], item['path'], item['searchKey']))
+                item['category1'], item['category2'], item['category3'], item['cid1'], item['cid2'], item['cid3'], item['c3Url'], item['path'], item['searchKey'], item['actionUrl']))
         else:
             print 'not found the spider'
 

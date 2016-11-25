@@ -59,10 +59,17 @@ class LianjiaSpider(scrapy.Spider):
                 item = JdCategoryItem()
                 searchKey = ''
                 path = ''
+                actionUrl = ''
+                cid2 = ''
                 if catelogy.has_key('path'):
                     path = catelogy['path']
+                    cs = path.split('_')
+                    if len(cs)==3:
+                        cid2 = cs[1]
                 if catelogy.has_key('searchKey'):
                     searchKey = catelogy['searchKey']
+                if catelogy.has_key('action'):
+                    actionUrl = catelogy['action']
                 cid3 = catelogy['cid']
                 category3 = catelogy['name']
                 icon = catelogy['icon']
@@ -71,10 +78,12 @@ class LianjiaSpider(scrapy.Spider):
                 item['category2'] = category2
                 item['category3'] = category3
                 item['cid1'] = cid1
+                item['cid2'] = cid2
                 item['cid3'] = cid3
                 item['c3Url'] = response.url
                 item['path'] = path
                 item['searchKey'] = searchKey
+                item['actionUrl'] = actionUrl
 
                 yield item
                 # print '***%s***%s***%s***%s***%s' % (path,cid3,category3,icon,searchKey)
