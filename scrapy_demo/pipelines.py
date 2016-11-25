@@ -86,7 +86,7 @@ class MySQLPipleline(object):
         elif spider.name == 'lianjia_deal_spider':
             print 'lianjia_deal_spider'
             self.insertDealData(conn, item)
-        elif spider.name == 'suning_spider':
+        elif spider.name == 'suning_category_spider':
             print 'suning_spider'
             conn.execute("""
                                INSERT  INTO t_suning_category (category, ware, wareUrl,imgUrl,memo)
@@ -100,6 +100,12 @@ class MySQLPipleline(object):
                                          """, (
             item['catentryId'], item['catentdesc'], item['price'], item['salesCode'], item['praiseRate'],
             item['countOfarticle'], item['auxdescription'], item['url'], item['category'], item['ware'],item['srcUrl']))
+        elif spider.name == 'csdn_expert_spider':
+            conn.execute("""
+                        INSERT  INTO t_csdn_expert (nickname, link, address, job, readers, articlenum)
+                        VALUES (%s, %s, %s, %s, %s, %s)
+                    """, (
+            item['nickname'], item['link'], item['address'], item['job'], item['readers'], item['articlenum']))
         else:
             print 'not found the spider'
 

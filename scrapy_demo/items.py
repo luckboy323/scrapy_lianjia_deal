@@ -56,3 +56,11 @@ class SuningWareItem(Item):
 	category = Field() # 类别
 	ware = Field()  # 商品
 	srcUrl = Field()
+
+class ExpertItem(Item):
+	nickname = Field() #姓名
+	link = Field() #博文链接
+	address = Field() #地址
+	job = Field()  # 职业
+	readers = Field() #阅读次数
+	articlenum = Field() #文章数
