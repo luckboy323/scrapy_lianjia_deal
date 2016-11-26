@@ -1,19 +1,14 @@
 # -*- coding: UTF-8 -*-
 
 import scrapy
-from bs4 import BeautifulSoup
-from scrapy_demo.items import SuningItem
-from scrapy.http import Request
-from scrapy.contrib.spiders import Rule
-from scrapy.contrib.linkextractors.lxmlhtml import LxmlLinkExtractor
-import time
 from scrapy import log
+from scrapy_demo.items import SuningItem
 
 
 class SuningSpider(scrapy.Spider):
     print '------begin spider suning data-------'
     Experts = []
-    name = "suning_spider"
+    name = "suning_category_spider"
     allowed_domains = ["suning.com"]
     start_urls = [
         "http://m.suning.com/list/list.html"

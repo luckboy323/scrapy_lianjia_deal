@@ -86,7 +86,7 @@ class MySQLPipleline(object):
         elif spider.name == 'lianjia_deal_spider':
             print 'lianjia_deal_spider'
             self.insertDealData(conn, item)
-        elif spider.name == 'suning_spider':
+        elif spider.name == 'suning_category_spider':
             print 'suning_spider'
             conn.execute("""
                                INSERT  INTO t_suning_category (category, ware, wareUrl,imgUrl,memo)
@@ -95,11 +95,23 @@ class MySQLPipleline(object):
         elif spider.name == 'suning_ware_spider':
             print 'suning_ware_spider'
             conn.execute("""
-                                             INSERT  INTO t_suning_ware (catentryId, catentdesc, price,salesCode,praiseRate,countOfarticle,auxdescription,url,category,ware)
-                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                             INSERT  INTO t_suning_ware (catentryId, catentdesc, price,salesCode,praiseRate,countOfarticle,auxdescription,url,category,ware,srcUrl)
+                                             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                                          """, (
             item['catentryId'], item['catentdesc'], item['price'], item['salesCode'], item['praiseRate'],
-            item['countOfarticle'], item['auxdescription'], item['url'], item['category'], item['ware']))
+            item['countOfarticle'], item['auxdescription'], item['url'], item['category'], item['ware'],item['srcUrl']))
+        elif spider.name == 'csdn_expert_spider':
+            conn.execute("""
+                        INSERT  INTO t_csdn_expert (nickname, link, address, job, readers, articlenum)
+                        VALUES (%s, %s, %s, %s, %s, %s)
+                    """, (
+            item['nickname'], item['link'], item['address'], item['job'], item['readers'], item['articlenum']))
+        elif spider.name == 'jd_category_spider':
+            conn.execute("""
+                          INSERT  INTO t_jd_category (category1, category2, category3, cid1, cid2, cid3, c3Url, path, searchKey, actionUrl)
+                          VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                      """, (
+                item['category1'], item['category2'], item['category3'], item['cid1'], item['cid2'], item['cid3'], item['c3Url'], item['path'], item['searchKey'], item['actionUrl']))
         else:
             print 'not found the spider'
 

@@ -5,7 +5,10 @@ import time
 import json
 from scrapy_demo.dbUtils.dataUtils import DataUtils
 
-
+# 从苏宁的M站抓取数据：
+# 1、首先获取分类列表：静态数据，获取回来直接用XPath解析即可
+# 2、根据每个分类抓取相应的商品列表，翻页采用js动态加载，获取js的请求地址（返回json数据），解析Json
+# 3、根据商品列表抓取详情页
 class LianjiaSpider(scrapy.Spider):
     name = "suning_ware_spider"
     print('------ begin suning_ware_spider data-------')
@@ -53,6 +56,7 @@ class LianjiaSpider(scrapy.Spider):
             item = SuningWareItem()
             item['category'] = category
             item['ware'] = wareName
+            item['srcUrl'] = wareurl
             item['catentdesc'] = ware['catentdesc']
             item['price'] = ware['price']
             item['praiseRate'] = ware['praiseRate']

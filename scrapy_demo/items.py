@@ -55,3 +55,25 @@ class SuningWareItem(Item):
 	url = Field()  # 详情链接
 	category = Field() # 类别
 	ware = Field()  # 商品
+	srcUrl = Field()
+
+class ExpertItem(Item):
+	nickname = Field() #姓名
+	link = Field() #博文链接
+	address = Field() #地址
+	job = Field()  # 职业
+	readers = Field() #阅读次数
+	articlenum = Field() #文章数
+
+
+class JdCategoryItem(Item):
+	category1 = Field()  # 第一层类别
+	category2 = Field()  # 第二层类别
+	category3 = Field()  # 第三层类别
+	path = Field()  # 类别路径
+	searchKey = Field()  # 搜索关键字
+	cid1 = Field()  # 第一层类别的ID
+	cid2 = Field()  # 第二层类别的ID
+	cid3 = Field()  #第三层类别的ID
+	c3Url = Field()  #第三层类别的Url
+	actionUrl = Field()
