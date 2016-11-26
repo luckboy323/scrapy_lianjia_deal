@@ -1,7 +1,6 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 239-抓取本地数据库
 Source Server Version : 50145
 Source Host           : 192.168.100.239:3306
 Source Database       : Spider

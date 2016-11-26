@@ -22,8 +22,6 @@ class DataUtils:
         # result_one = db.query(sql_select, 'one')  # 返回一行
         list1 = []
         for result in result_all:
-            # print "dict[category]=%s" % result['category']
-            # print "dict[wareUrl]=%s" % result['wareUrl']
             url = result['wareUrl']
 
             fomart = '-0123456789'
@@ -43,6 +41,7 @@ class DataUtils:
         print "----list length is---%d" % len(list1)
         db.close()  # 操作结束，关闭对象
         return list1
+
 
     def getJdCategoryFromMySQl(self):
         # 配置信息，其中host, port, user, passwd, db为必需
