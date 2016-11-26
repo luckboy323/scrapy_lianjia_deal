@@ -6,11 +6,11 @@ class DataUtils:
 
     def getDataFromMySQl(self):
         # 配置信息，其中host, port, user, passwd, db为必需
-        dbconfig = {'host': '192.168.100.239',
+        dbconfig = {'host': 'localhost',
                     'port': 3306,
-                    'user': 'devtest',
-                    'passwd': 'devtest',
-                    'db': 'Spider',
+                    'user': 'root',
+                    'passwd': 'root',
+                    'db': 'spider',
                     'charset': 'utf8'}
 
         db = LightMysql(dbconfig)  # 创建LightMysql对象，若连接超时，会自动重连

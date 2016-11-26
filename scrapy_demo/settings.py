@@ -26,10 +26,10 @@ ITEM_PIPELINES = {
 }
 
 # start MySQL database configure setting
-MYSQL_HOST = '192.168.100.239'
-MYSQL_DBNAME = 'Spider'
-MYSQL_USER = 'devtest'
-MYSQL_PASSWD = 'devtest'
+MYSQL_HOST = 'localhost'
+MYSQL_DBNAME = 'spider'
+MYSQL_USER = 'root'
+MYSQL_PASSWD = 'root'
 # end of MySQL database configure setting
 
 
