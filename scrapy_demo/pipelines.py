@@ -112,6 +112,15 @@ class MySQLPipleline(object):
                           VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                       """, (
                 item['category1'], item['category2'], item['category3'], item['cid1'], item['cid2'], item['cid3'], item['c3Url'], item['path'], item['searchKey'], item['actionUrl']))
+        elif spider.name == 'jd_ware_spider':
+            conn.execute("""
+                                        INSERT  INTO t_jd_ware (wareId, wname, countOfarticle, cid1, cid2, cid3, price, selfsell, shopName, praiseRate,wareUrl)
+                                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                                    """, (
+                item['wareId'], item['wname'], item['countOfarticle'], item['cid1'], item['cid2'], item['cid3'],
+                item['price'], item['selfsell'], item['shopName'], item['praiseRate'], item['wareUrl']))
+
+
         else:
             print 'not found the spider'
 

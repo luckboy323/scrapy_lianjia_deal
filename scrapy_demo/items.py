@@ -77,3 +77,17 @@ class JdCategoryItem(Item):
 	cid3 = Field()  #第三层类别的ID
 	c3Url = Field()  #第三层类别的Url
 	actionUrl = Field()
+
+
+class JdWareItem(Item):
+    wareId = Field()  # 商品ID
+    wname = Field()  # 商品名称
+    countOfarticle = Field()  # 评论总数
+    price = Field()  # 商品价格
+    selfsell = Field()  # 是否自营
+    shopName = Field()  # 店铺名称
+    praiseRate = Field()  # 好评率
+    cid1 = Field()  # 第一层类别
+    cid2 = Field()  # 第二层类别
+    cid3 = Field()  # 第三层类别
+    wareUrl = Field()
